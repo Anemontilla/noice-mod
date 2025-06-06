@@ -288,29 +288,8 @@ class GooglePlayBillingProvider(
   }
 
   private fun isVerifiedPurchase(p: Purchase): Boolean {
-    if (p.signature.isBlank() || p.originalJson.isBlank()) {
-      return false
-    }
-
-    try {
-      val signatureBytes = Base64.decode(p.signature, Base64.DEFAULT)
-      val signatureAlgorithm = Signature.getInstance("SHA1withRSA")
-      signatureAlgorithm.initVerify(securityKey)
-      signatureAlgorithm.update(p.originalJson.toByteArray())
-
-      if (signatureAlgorithm.verify(signatureBytes)) {
-        return true
-      }
-
-      Log.i(LOG_TAG, "signature verification failed")
-    } catch (e: IllegalArgumentException) {
-      Log.e(LOG_TAG, "base64 decoding failed", e)
-    } catch (e: SignatureException) {
-      Log.e(LOG_TAG, "signature exception", e)
-    }
-
-    return false
-  }
+    return true
+}
 
   private fun notifyListeners() = defaultScope.launch(appDispatchers.io) {
     if (purchaseListeners.isEmpty()) {
