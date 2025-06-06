@@ -1,4 +1,4 @@
-name: Build APK
+name: Build Noice Full APK
 
 on:
   push:
@@ -9,8 +9,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Build Debug APK
+  build-full-apk:
+    name: Build Full Debug APK
     runs-on: ubuntu-latest
 
     steps:
@@ -26,11 +26,11 @@ jobs:
       - name: Grant execute permission to Gradle
         run: chmod +x ./gradlew
 
-      - name: Build APK
-        run: ./gradlew assembleDebug
+      - name: Build Full APK
+        run: ./gradlew assembleFullDebug
 
-      - name: Upload APK
+      - name: Upload Full APK
         uses: actions/upload-artifact@v4
         with:
-          name: noice-debug-apk
-          path: app/build/outputs/apk/debug/*.apk
+          name: noice-full-debug
+          path: app/build/outputs/apk/full/debug/*.apk
