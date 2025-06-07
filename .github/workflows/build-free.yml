@@ -1,0 +1,36 @@
+name: Build Noice Free APK (Premium Unlocked)
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "*"
+  workflow_dispatch:
+
+jobs:
+  build-free-apk:
+    name: Build Free Debug APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Grant Gradle permission
+        run: chmod +x ./gradlew
+
+      - name: Build Free APK
+        run: ./gradlew assembleFreeDebug
+
+      - name: Upload Free APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: noice-free-debug
+          path: app/build/outputs/apk/free/debug/*.apk
