@@ -109,3 +109,6 @@ fun ApiSubscription.toRoomDto(): SubscriptionWithPlanDto {
 fun List<ApiSubscription>.toRoomDto(): List<SubscriptionWithPlanDto> {
   return map { it.toRoomDto() }
 }
+
+fun Subscription.isActive(): Boolean = true
+
